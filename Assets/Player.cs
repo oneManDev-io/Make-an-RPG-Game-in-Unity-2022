@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 
     Vector2 velocity;
 
+    public Animator animator;
+
     void Start()
     {
     }
@@ -20,10 +22,26 @@ public class Player : MonoBehaviour
         velocity = Vector2.zero;
         velocity.x = Input.GetAxisRaw("Horizontal");
         velocity.y = Input.GetAxisRaw("Vertical");
-        Debug.Log(velocity);
+
+        UpdateAnimation();
     }
 
-    void FixedUpdate()
+    void UpdateAnimation()
+    {
+        if (velocity != Vector2.zero)
+        {
+            UpdateMovement();
+
+            animator.SetBool("Walking", true);
+            animator.SetFloat("Horizontal", velocity.x);
+            animator.SetFloat("Vertical", velocity.y);
+        } else
+        {
+            animator.SetBool("Walking", false);
+        }
+    }
+
+    void UpdateMovement()
     {
         rb.MovePosition(rb.position + velocity * moveSpeed * Time.fixedDeltaTime);
     }
