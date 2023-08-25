@@ -6,19 +6,32 @@ public class Player : MonoBehaviour
 {
     public enum PlayerState
     {
-        walk
+        idle,
+        walk,
+        run,
+        attack
     }
+
+    public enum PlayerFacing
+    {
+        up,
+        down,
+        left,
+        right,
+    }
+
+    public PlayerFacing facing;
 
     public PlayerState currentState;
 
     public float moveSpeed = 5f;
     public Rigidbody2D rb;
 
-    Vector2 velocity;
+    public Vector2 velocity;
 
     public Animator animator;
 
-    // Start is called before the first frame update
+    // make reference to 
     void Start()
     {
         moveSpeed = 5f;
